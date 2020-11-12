@@ -3,14 +3,19 @@ import { LoginStyle } from "../../Styles/StyledComponents";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "../../API/firebase";
 
+var count = 1;
+
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [counter, setCounter] = useState(1);
 
   const login = (e) => {
     e.preventDefault();
     //Login logic with enabled firebase...
+    count = count + 1;
+    setCounter(count);
     auth
       .signInWithEmailAndPassword(email, password)
       .then((auth) => {
@@ -19,6 +24,17 @@ function Login() {
       })
       .catch((e) => alert(e.message));
   };
+
+  const resetPass = (e) =>{
+    e.preventDefault();
+    //send link for reset a password
+    auth
+      .sendPasswordResetEmail(email)
+      .then(function(){
+        alert('An email of reset password was send in your account!')
+      })
+      .catch((e)=> alert(e.message));
+  }
 
   const register = (e) => {
     e.preventDefault();
@@ -55,9 +71,15 @@ function Login() {
             onChange={(event) => setPassword(event.target.value)}
             type="password"
           ></input>
-          <button onClick={login} type="submit" className="login_signInButton">
+          {
+          counter > 3
+              ? <button onClick={resetPass} type="submit" className="login_signInButton">
+            Reset your password
+                </button> 
+              : <button onClick={login} type="submit" className="login_signInButton">
             Sign In
-          </button>
+                </button>
+          }
         </form>
         <p>
           By signing-in you agree to Amazon`s Condition of Use & Sale. Please

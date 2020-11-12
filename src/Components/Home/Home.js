@@ -2,6 +2,7 @@ import React from "react";
 import { HomeStyle } from "../../Styles/StyledComponents";
 import Product from "../Product";
 
+
 function Home() {
   return (
     <HomeStyle>
