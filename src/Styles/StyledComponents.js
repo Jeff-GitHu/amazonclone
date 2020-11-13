@@ -19,6 +19,17 @@ export const HeaderStyle = styled.header`
     margin-right: 20px;
     /* margin: 0px 20px; */
     margin-top: 18px;
+    :hover{
+      transform: scale(1.2);
+    }
+    :active{
+      animation: tiembla 0.1s infinite;
+    }
+    @keyframes tiembla{
+      0% {transform: rotateZ(-1deg);}
+      50% {transform: rotateZ(0deg) scale(.6);}
+      100% {transform: rotateZ(1deg);}
+    }
   }
 
   .header_nav {
@@ -28,6 +39,9 @@ export const HeaderStyle = styled.header`
   .header_link {
     color: white;
     text-decoration: none;
+    :hover{
+      transform: scale(1.2);
+    }
   }
 
   .header_option {
@@ -155,6 +169,19 @@ export const ProductStyle = styled.div`
     @media(max-width:500px){
       font-size: 10px;
     }
+
+    :hover{
+      transform: scale(1.2);
+    }
+
+    :active{
+      animation: tiembla 0.1s infinite;
+    }
+    @keyframes tiembla{
+      0% {transform: rotateZ(-1deg);}
+      50% {transform: rotateZ(0deg) scale(.6);}
+      100% {transform: rotateZ(1deg);}
+    }
   }
 `;
 
@@ -196,6 +223,9 @@ export const CheckoutProductStyle = styled.div`
     margin-top: 18px;
     border-color: #a88734 #9c7e31 #b46a29;
     color: #111;
+    :hover{
+      transform: scale(1.2);
+    }
   }
   .checkoutProduct_rating {
     display: flex;
@@ -236,6 +266,9 @@ export const SubtotalStyle = styled.div`
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+    :hover{
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -280,23 +313,43 @@ export const LoginStyle = styled.div`
     object-fit: contain;
     margin-top: 20px;
     margin-bottom: 20px;
+    :hover{
+      transform: scale(1.1);
+    }
+    :active{
+      animation: tiembla 0.1s infinite;
+    }
+    @keyframes tiembla{
+      0% {transform: rotateZ(-1deg);}
+      50% {transform: rotateZ(0deg) scale(.6);}
+      100% {transform: rotateZ(1deg);}
+    }
   }
   .login_signInButton {
     background: #f0c14b;
-    border-radius: 2px;
+    border-radius: 10px;
     width: 100%;
     height: 30px;
     border: 1px solid;
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
+    :hover{
+      background: #f0c14b;
+      box-shadow: 4px 4px 10px #26190C;
+      transform: scale(1.1);
+    }
   }
 
   .login_registerButton {
-    border-radius: 2px;
+    border-radius: 10px;
     width: 100%;
     height: 30px;
     border: 1px solid;
     margin-top: 10px;
     border-color: darkgray;
+    :hover{
+      box-shadow: 4px 4px 10px #26190C;
+      transform: scale(1.1);
+    }
   }
 `;

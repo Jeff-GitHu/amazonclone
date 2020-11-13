@@ -2,6 +2,7 @@ import React from "react";
 import { CheckoutProductStyle } from "../../Styles/StyledComponents";
 import { useStateValue } from "../../API/StateProvider";
 import { Flipped, spring } from "react-flip-toolkit";
+import { useHistory } from "react-router-dom";
 
 const onElementAppear = (el, index) =>
   spring({
@@ -30,7 +31,18 @@ const onExit = type => (el, index, removeElement) => {
 const onGridExit = onExit("grid");
 const onListExit = onExit("list");
 
+function getById(arr, id) {
+  debugger
+  for (var d = 0, len = arr.length; d < len; d += 1) {
+      if (arr[d].id == id) {
+          return true;
+      }
+     return false
+  }
+}
+
 function CheckoutProduct({ title, image, rating, price, id, type, stagger, addToFilteredIds }) {
+  const history = useHistory();
   const [{ basket }, dispatch] = useStateValue();
   const shouldFlip = (prev, current) => {
     if (prev.type !== current.type) {
@@ -41,12 +53,24 @@ function CheckoutProduct({ title, image, rating, price, id, type, stagger, addTo
   const flipId = `item-${id}`;
   const removeFromBasket = () => {
     addToFilteredIds(id)
+    if(basket.length > 2 || getById(basket,id)){
+      setTimeout(function(){ 
+        history.push("/");
+      }, 700);
+
+      setTimeout(function(){ 
+        history.push("checkout");
+      }, 750);
+    }
+
     setTimeout(function(){ 
       dispatch({
         type: "REMOVE_FROM_BASKET",
         id: id,
       });
     }, 500);
+
+    
   };
   return (
     <CheckoutProductStyle>
@@ -68,26 +92,26 @@ function CheckoutProduct({ title, image, rating, price, id, type, stagger, addTo
               delayUntil={flipId}
             >
               <div>
-              <img className="checkouProduct_image" src={image} alt="" />
-      <div className="checkoutProduct_info">
-        <p className="checkoutProduct_title">{title}</p>
-        <p className="checkoutProduct_price">
-          <small>$</small>
-          <strong>{price}</strong>
-        </p>
-        <div className="checkoutProduct_rating">
-          {Array(rating)
-            .fill()
-            .map((_, i) => (
-              <p>⭐️</p>
-            ))}
-        </div>
-        <Flipped
-              flipId={`${flipId}-button`}
-              shouldFlip={shouldFlip}
-              delayUntil={flipId}
-            >
-             <button onClick={removeFromBasket}>Remove from basket</button>
+                <img className="checkouProduct_image" src={image} alt="" />
+                <div className="checkoutProduct_info">
+                <p className="checkoutProduct_title">{title}</p>
+                <p className="checkoutProduct_price">
+                  <small>$</small>
+                  <strong>{price}</strong>
+                </p>
+                <div className="checkoutProduct_rating">
+                {Array(rating)
+                  .fill()
+                  .map((_, i) => (
+                    <p>⭐️</p>
+                  ))}
+              </div>
+              <Flipped
+                flipId={`${flipId}-button`}
+                shouldFlip={shouldFlip}
+                delayUntil={flipId}
+              >
+              <button onClick={removeFromBasket}>Remove from basket</button>
             </Flipped>
         
       </div>
